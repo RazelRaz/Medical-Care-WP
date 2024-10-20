@@ -70,11 +70,16 @@ get_header(); ?>
 									<div class="blog-bottom">
 										<!-- Social Share -->
 										<ul class="social-share">
-											<li class="facebook"><a href="#"><i class="fa fa-facebook"></i><span>Facebook</span></a></li>
-											<li class="twitter"><a href="#"><i class="fa fa-twitter"></i><span>Twitter</span></a></li>
-											<li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-											<li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-											<li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                      <?php
+                        // Get the current post URL and title
+                        $post_url = urlencode( get_permalink() );
+                        $post_title = urlencode( get_the_title() );
+                        $post_img = urlencode( get_the_post_thumbnail_url() ); // Optional for Pinterest
+                      ?>
+											<li class="facebook"><a href="https://www.facebook.com/sharer.php?u=<?php echo $post_url; ?>"><i class="fa fa-facebook"></i><span>Facebook</span></a></li>
+											<li class="twitter"><a href="https://twitter.com/share?url=<?php echo $post_url; ?>&text=<?php echo $post_title; ?>"><i class="fa fa-twitter"></i><span>Twitter</span></a></li>
+											<li class="linkedin"><a href="https://www.linkedin.com/shareArticle?url=<?php echo $post_url; ?>&title=<?php echo $post_title; ?>"><i class="fa fa-linkedin"></i></a></li>
+											<li class="pinterest"><a href="https://pinterest.com/pin/create/button/?url=<?php echo $post_url; ?>&media=<?php echo $post_img; ?>&description=<?php echo $post_title; ?>"><i class="fa fa-pinterest"></i></a></li>
 										</ul>
 										<!-- Next Prev -->
 										<ul class="prev-next">
