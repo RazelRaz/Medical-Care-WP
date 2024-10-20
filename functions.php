@@ -90,3 +90,34 @@ function custom_excerpt_more() {
 // function custom_excerpt_more( $more ) {
 //   return '... <a href="' . get_permalink() . '">Read More</a>';
 // }
+
+
+// Function to set the post view count
+function manutdtheme_set_post_views($postID) {
+  $count_key = 'post_views_count';
+  $count = get_post_meta($postID, $count_key, true);
+
+  if ($count == '') {
+      $count = 0;
+      delete_post_meta($postID, $count_key);
+      add_post_meta($postID, $count_key, '0');
+  } else {
+      $count++;
+      update_post_meta($postID, $count_key, $count);
+  }
+}
+
+// To remove prefetching (which may cause multiple views to be added), disable prefetching
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+// Function to get the post view count
+function manutdtheme_get_post_views($postID) {
+  $count_key = 'post_views_count';
+  $count = get_post_meta($postID, $count_key, true);
+
+  if ($count == '') {
+      return "0 Views";
+  }
+
+  return $count . ' Views';
+}
