@@ -12,11 +12,52 @@ if ( !function_exists( 'manutdtheme' ) ) {
       add_theme_support( 'post-formats', array( 'aside', 'gallery', 'quote', 'image', 'video', 'audio' ) );
       // enqueue scripts
       add_action( 'wp_enqueue_scripts', 'manutdthemescript' );
+      // Adding Meta Boxes
+      add_action( 'add_meta_boxes', 'medical_add_custom_box' );
 
+      if( !function_exists( 'medical_add_custom_box' ) ) {
+          function medical_add_custom_box() {
+              add_meta_box(
+                  'help_meta',
+                  'Add Icon',
+                  'help_display_callback',
+                  'my_own_help'
+
+              );
+          }
+      }
+
+      if( !function_exists( 'help_display_callback' ) ) {
+          function help_display_callback($post) {
+            //get
+            $saveIcon = get_post_meta( $post->ID, 'save_key', true );
+            ?>
+              <label for="addicon">Add Help Service Icon Name Here</label>
+              <input type="text" name="add_icon" id="add_icon" value="<?php echo $saveIcon ?>">
+              
+            <?php 
+          }
+      }
+
+
+      if( !function_exists( 'help_meta_save' ) ) {
+        // SAVE
+        function help_meta_save( $post_id ) {
+              // Check if 'add_icon' is set to avoid undefined index warnings
+              if ( isset( $_POST['add_icon'] ) ) {
+                update_post_meta(
+                  $post_id,
+                  'save_key',
+                  sanitize_text_field( $_POST['add_icon'] ), // Sanitizes input to enhance security
+                );
+              }
+          }
+      }
+      add_action( 'save_post', 'help_meta_save' );
+
+      //all scripts
       if ( !function_exists( 'manutdthemescript' ) ) {
         function manutdthemescript() {
-
-          
 
           // Bootstrap CSS
           wp_enqueue_style( 'bootstrap_css', get_parent_theme_file_uri( 'assets/css/bootstrap.min.css' ), array(), wp_get_theme()->get( 'Version' ), 'all');
@@ -121,3 +162,7 @@ function manutdtheme_get_post_views($postID) {
 
   return $count . ' Views';
 }
+
+// custom posts
+require get_template_directory().'./inc/customposts/slider.php';
+require get_template_directory().'./inc/customposts/help.php';
