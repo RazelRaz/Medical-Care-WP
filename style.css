@@ -15,6 +15,12 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
 
- .Feautes .single-features::before:last-child {
-    display: none !important;
- }
+ /* .Feautes  */
+
+.Features .single-features:last-child::before {
+    border-bottom: none;
+}
+
+.Features .single-features:last-of-type::before {
+    border-bottom: none !important;
+}
