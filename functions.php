@@ -225,3 +225,4 @@ function manutdtheme_get_post_views($postID) {
 require get_template_directory().'./inc/customposts/slider.php';
 require get_template_directory().'./inc/customposts/help.php';
 require get_template_directory().'./inc/customposts/myschedule.php';
+require get_template_directory().'./inc/customposts/myfunfacts.php';

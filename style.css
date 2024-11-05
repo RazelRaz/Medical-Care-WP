@@ -24,3 +24,7 @@
 .Features .single-features:last-of-type::before {
     border-bottom: none !important;
 }
+
+section.custom-schedule-single {
+    padding: 120px 0;
+}
