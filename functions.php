@@ -8,6 +8,7 @@ if ( !function_exists( 'manutdtheme' ) ) {
       // Loads the theme’s translated strings
       load_theme_textdomain( 'manutdtheme', get_template_directory().'/languages' );
       // Registers theme support 
+      add_theme_support( 'post-thumbnails' );
       add_theme_support( 'post-thumbnails', array( 'post' ) );
       add_theme_support( 'post-formats', array( 'aside', 'gallery', 'quote', 'image', 'video', 'audio' ) );
       // enqueue scripts
@@ -16,6 +17,7 @@ if ( !function_exists( 'manutdtheme' ) ) {
       add_action( 'add_meta_boxes', 'medical_add_custom_box' );
       add_action( 'add_meta_boxes', 'medical_add_custom_box_for_schedule' );
       add_action( 'add_meta_boxes', 'medical_add_custom_box_for_funfacts' );
+      add_action( 'add_meta_boxes', 'medical_add_custom_box_for_gallery' );
 
 
       //all scripts
@@ -132,3 +134,4 @@ require get_template_directory().'./inc/customposts/help.php';
 require get_template_directory().'./inc/customposts/myschedule.php';
 require get_template_directory().'./inc/customposts/myfunfacts.php';
 require get_template_directory().'./inc/customposts/myallpostmeta.php';
+require get_template_directory().'./inc/customposts/medicalgallery.php';

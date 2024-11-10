@@ -1,5 +1,43 @@
 <?php
 
+// gallery
+if( !function_exists( 'medical_add_custom_box_for_gallery' ) ){
+    function medical_add_custom_box_for_gallery() {
+        add_meta_box(
+        'gallery_meta',
+        'View Details text',
+        'gallery_display_callback'
+        );
+    }
+}
+
+if( !function_exists( 'gallery_display_callback' ) ) {
+    function gallery_display_callback( $post ) {
+        // GET
+        $galtextbtn = get_post_meta( $post->ID, 'gal_key', true );
+        ?>
+          <label for="addicon">View Detials Icon Text</label>
+          <input type="text" name="gal_add_btn_text" id="gal_add_btn_text" value="<?php echo $galtextbtn; ?>">
+        <?php
+    }
+}
+
+
+if( !function_exists( 'gallery_meta_save' ) ) {
+    // save
+    function gallery_meta_save( $post_id ) {
+        // Check if 'gal_btn_text' is set to avoid undefined index warnings
+        if( isset( $_POST['gal_add_btn_text'] ) ) {
+            update_post_meta(
+              $post_id,
+              'gal_key',
+              sanitize_text_field($_POST['gal_add_btn_text']),
+            );
+        }
+    }
+}
+add_action( 'save_post', 'gallery_meta_save' );
+
 // funfacts
 if( !function_exists( 'medical_add_custom_box_for_funfacts' ) ) {
     function medical_add_custom_box_for_funfacts() {
@@ -30,7 +68,7 @@ if( !function_exists( 'funfact_display_callback' ) ) {
 if( !function_exists( 'funfact_meta_save' ) ) {
     // save
     function funfact_meta_save( $post_id ) {
-        // Check if 'add_icon' is set to avoid undefined index warnings
+        // Check if 'fun_add_icon' is set to avoid undefined index warnings
         if( isset( $_POST['fun_add_icon'] ) ) {
             update_post_meta(
               $post_id,
