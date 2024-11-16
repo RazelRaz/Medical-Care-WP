@@ -18,9 +18,33 @@ if ( !function_exists( 'manutdtheme' ) ) {
       add_action( 'add_meta_boxes', 'medical_add_custom_box_for_schedule' );
       add_action( 'add_meta_boxes', 'medical_add_custom_box_for_funfacts' );
       add_action( 'add_meta_boxes', 'medical_add_custom_box_for_gallery' );
+      // Register meta box for Gallery slider images
+      add_action( 'add_meta_boxes', 'gallery_image_slider_meta_box' );
+      add_action( 'admin_enqueue_scripts', 'enqueue_gallery_meta_box_scripts' );
 
 
-      //all scripts
+      // Enqueue scripts and media for meta boxes
+      if ( !function_exists( 'enqueue_gallery_meta_box_scripts' ) ) {
+            function enqueue_gallery_meta_box_scripts( $hook ) {
+              // Check if we are editing the 'medical_gallery' post type
+              global $post_type;
+          
+              if ( 'medical_gallery' === $post_type ) {
+                  wp_enqueue_media(); // Enqueue media uploader
+                  wp_enqueue_script( 
+                      'gallery-meta-box', 
+                      get_template_directory_uri() . '/assets/js/gallery-meta-box.js', 
+                      array( 'jquery' ), 
+                      '', 
+                      true 
+                  );
+              }
+            }
+      }
+
+
+
+      //all css scripts
       if ( !function_exists( 'manutdthemescript' ) ) {
         function manutdthemescript() {
 
@@ -68,7 +92,12 @@ if ( !function_exists( 'manutdtheme' ) ) {
           
           
           wp_enqueue_script('manutd-main', get_parent_theme_file_uri( 'assets/js/main.js' ), array(), wp_get_theme()->get( 'Version' ), true );
-          
+
+
+
+
+          // WordPress jQuery (default)
+          wp_enqueue_script('jquery');
 
         }
         

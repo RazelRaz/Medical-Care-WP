@@ -27,9 +27,18 @@
 						<div class="inner-content">
 							<div class="image-slider">
 								<div class="pf-details-slider">
-									<img src="<?php echo esc_url( get_template_directory_uri(). './assets/img/call-bg.jpg'  ); ?>" alt="#">
-									<img src="<?php echo esc_url( get_template_directory_uri(). './assets/img/call-bg.jpg'  ); ?>" alt="#">
-									<img src="<?php echo esc_url( get_template_directory_uri(). './assets/img/call-bg.jpg'  ); ?>" alt="#">
+                                    <?php
+                                        $slider_images = get_post_meta( get_the_ID(), 'slider_images', true );
+                                        if( !empty( $slider_images ) ) {
+                                            foreach( $slider_images as $image_id ) {
+                                                echo wp_get_attachment_image( $image_id, 'large' );
+                                            }
+                                        }
+                                        /**
+                                         * <img src="<?php echo esc_url( get_template_directory_uri(). './assets/img/call-bg.jpg'  ); ?>" alt="#">
+                                         */
+									
+                                        ?>
 								</div>
 							</div>
 							<div class="date">
@@ -41,10 +50,8 @@
 								</ul>
 							</div>
 							<div class="body-text">
-								<h3>Here is the name of this project here</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor a ti incididunt ut labore et dolore to in magna aliqua. Ut enim ad minim veniam, quis to the in nostrud.abore et dolore magna aliqua uis nostrud.Lorem ipsum dolor sit amet, in a in to in a consectetur.ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis to the in nostrud.abore et dolore magna in a aliqua uis nostrud.Lorem ipsum dolor sit amet, in aed do eiusmod</p>
-								<p>ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis to the in nostrud.abore et dolore magna to in aliqua uis nostrud.Lorem ipsum dolor sit amet, in aed do eiusmod.ncididunt ut labore et dolore magna aliqua. </p>
-								<p>ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis to the in nostrud.abore et dolore magna a aliqua uis nostrud.Lorem ipsum dolor sit amet, in aed do eiusmod.ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis to the in nostrud.abore et dolore magna aliqua uis nostrud.Lorem ipsum dolor sit amet, in aed do eiusmod. dolor sit amet, in aed do eiusmod.ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis to the in nostrud.abore et dolore magna aliqua uis nostrud.</p>
+								<h3><?php the_title( '<h3>', '</h3>' ); ?></h3>
+								<p><?php the_content(); ?></p>
 								<div class="share">
 									<h4>Share Now -</h4>
 									<ul>

@@ -1,5 +1,67 @@
 <?php
 
+// Gallery slider
+if( !function_exists( 'gallery_image_slider_meta_box' ) ){
+  function gallery_image_slider_meta_box() {
+    add_meta_box(
+        'gallery_slider_meta',
+        'Image Slider',
+        'gallery_slider_meta_callback',
+        'medical_gallery',
+        'normal',
+        'high'
+    );
+  }
+}
+
+
+if( !function_exists( 'gallery_slider_meta_callback' ) ) {
+  // get current images
+  function gallery_slider_meta_callback( $post ) {
+
+      // Get current images
+      $slider_images = get_post_meta( $post->ID, 'slider_images', true ) ?: [];
+
+      // Display upload button and images
+      ?>
+      <div id="slider-images-wrapper">
+          <a href="#" class="button add-slider-images-button">Add Images</a>
+          <ul id="slider-images-list">
+              <?php foreach ( $slider_images as $image_id ) : ?>
+                  <li>
+                      <?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?>
+                      <input type="hidden" name="slider_images[]" value="<?php echo esc_attr( $image_id ); ?>" />
+                      <a href="#" class="remove-slider-image">Remove</a>
+                  </li>
+              <?php endforeach; ?>
+          </ul>
+      </div>
+      <?php
+      // Use wp_nonce_field to protect the form
+      wp_nonce_field( 'save_slider_images', 'slider_images_nonce' );
+  }
+}
+
+if( !function_exists( 'save_gallery_slider_images_meta' ) ) {
+    function save_gallery_slider_images_meta( $post_id ) {
+        // Verify nonce
+        if ( !isset( $_POST['slider_images_nonce'] ) || !wp_verify_nonce( $_POST['slider_images_nonce'], 'save_slider_images' ) ) {
+          return;
+        }
+
+        // Save slider images
+        if ( isset( $_POST['slider_images'] ) ) {
+          update_post_meta( $post_id, 'slider_images', array_map( 'intval', $_POST['slider_images'] ) );
+        } else {
+          delete_post_meta( $post_id, 'slider_images' );
+        }
+    }
+}
+
+add_action( 'save_post', 'save_gallery_slider_images_meta' );
+
+
+
 // gallery
 if( !function_exists( 'medical_add_custom_box_for_gallery' ) ){
     function medical_add_custom_box_for_gallery() {
