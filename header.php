@@ -73,8 +73,12 @@
 						<div class="col-lg-6 col-md-7 col-12">
 							<!-- Top Contact -->
 							<ul class="top-contact">
-								<li><i class="fa fa-phone"></i>+880 1234 56789</li>
-								<li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">support@yourmail.com</a></li>
+								<?php 
+									// Get options
+									$options = get_option( '_medi_my_options' ); // unique id of the framework
+								?>
+								<li><i class="fa fa-phone"></i><?php echo $options['opt-medical-phone']; // id of the field ?></li>
+								<li><i class="fa fa-envelope"></i><a href="<?php echo $options['opt-medical-email']; // id of the field ?>"><?php echo $options['opt-medical-email']; // id of the field ?></a></li>
 							</ul>
 							<!-- End Top Contact -->
 						</div>

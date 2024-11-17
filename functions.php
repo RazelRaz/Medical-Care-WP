@@ -164,3 +164,6 @@ require get_template_directory().'./inc/customposts/myschedule.php';
 require get_template_directory().'./inc/customposts/myfunfacts.php';
 require get_template_directory().'./inc/customposts/myallpostmeta.php';
 require get_template_directory().'./inc/customposts/medicalgallery.php';
+// Theme options
+require get_template_directory().'./inc/themeoption/codestar-framework.php';
+require get_template_directory().'./inc/themeoption/samples/my-options.php';
