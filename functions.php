@@ -93,7 +93,8 @@ if ( !function_exists( 'manutdtheme' ) ) {
           
           wp_enqueue_script('manutd-main', get_parent_theme_file_uri( 'assets/js/main.js' ), array(), wp_get_theme()->get( 'Version' ), true );
 
-
+          // custom js file for own js codes
+          wp_enqueue_script('manutdjs-own', get_parent_theme_file_uri( 'assets/js/manutd.js' ), array(), wp_get_theme()->get( 'Version' ), true );
 
 
           // WordPress jQuery (default)
@@ -167,3 +168,26 @@ require get_template_directory().'./inc/customposts/medicalgallery.php';
 // Theme options
 require get_template_directory().'./inc/themeoption/codestar-framework.php';
 require get_template_directory().'./inc/themeoption/samples/my-options.php';
+
+// menus
+add_action( 'init', 'myallmenus' );
+
+if( !function_exists( 'myallmenus' ) ){
+
+    add_filter( 'wp_nav_menu_objects', 'mymenuactive_class' );
+    function mymenuactive_class( $menu_items ) {
+      
+        $menu_items[1]->classes[] ="active";
+        return $menu_items;
+        
+    }
+
+    function myallmenus() {
+        register_nav_menus( [
+          'top-menu' => __( 'Top Menu', 'manutdtheme' ),
+          'primary-menu' => __( 'Main Menu', 'manutdtheme' ),
+          'footer-menu-one' => __( 'Footer Menu One', 'manutdtheme' ),
+          'footer-menu-two' => __( 'Footer Menu Two', 'manutdtheme' ),
+        ] );
+    }
+}

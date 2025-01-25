@@ -38,21 +38,7 @@
         </div> -->
         <!-- End Preloader -->
 		
-		<!-- Get Pro Button -->
-		<ul class="pro-features">
-			<a class="get-pro" href="#">Get Pro</a>
-			<li class="big-title">Pro Version Available on Themeforest</li>
-			<li class="title">Pro Version Features</li>
-			<li>2+ premade home pages</li>
-			<li>20+ html pages</li>
-			<li>Color Plate With 12+ Colors</li>
-			<li>Sticky Header / Sticky Filters</li>
-			<li>Working Contact Form With Google Map</li>
-			<div class="button">
-				<a href="http://preview.themeforest.net/item/mediplus-medical-and-doctor-html-template/full_screen_preview/26665910?_ga=2.145092285.888558928.1591971968-344530658.1588061879" target="_blank" class="btn">Pro Version Demo</a>
-				<a href="https://themeforest.net/item/mediplus-medical-and-doctor-html-template/26665910" target="_blank" class="btn">Buy Pro Version</a>
-			</div>
-		</ul>
+		
 	
 		<!-- Header Area -->
 		<header class="header" >
@@ -61,13 +47,21 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 col-md-5 col-12">
+							<?php 
+
+								wp_nav_menu( [
+									'theme_location' => 'top-menu',
+									'menu_class' => 'top-link',
+								] );
+							
+							?>
 							<!-- Contact -->
-							<ul class="top-link">
+							<!-- <ul class="top-link">
 								<li><a href="#">About</a></li>
 								<li><a href="#">Doctors</a></li>
 								<li><a href="#">Contact</a></li>
 								<li><a href="#">FAQ</a></li>
-							</ul>
+							</ul> -->
 							<!-- End Contact -->
 						</div>
 						<div class="col-lg-6 col-md-7 col-12">
@@ -76,6 +70,7 @@
 								<?php 
 									// Get options
 									$options = get_option( '_medi_my_options' ); // unique id of the framework
+									
 								?>
 								<li><i class="fa fa-phone"></i><?php echo $options['opt-medical-phone']; // id of the field ?></li>
 								<li><i class="fa fa-envelope"></i><a href="<?php echo $options['opt-medical-email']; // id of the field ?>"><?php echo $options['opt-medical-email']; // id of the field ?></a></li>
@@ -105,7 +100,15 @@
 								<!-- Main Menu -->
 								<div class="main-menu">
 									<nav class="navigation">
-										<ul class="nav menu">
+
+										<?php 
+											wp_nav_menu([
+												'theme_location' => 'primary-menu',
+												'menu_class' => 'nav menu',
+											] );
+										?>
+
+										<!-- <ul class="nav menu">
 											<li class="active"><a href="#">Home <i class="icofont-rounded-down"></i></a>
 												<ul class="dropdown">
 													<li><a href="index.html">Home Page 1</a></li>
@@ -113,18 +116,8 @@
 											</li>
 											<li><a href="#">Doctos </a></li>
 											<li><a href="#">Services </a></li>
-											<li><a href="#">Pages <i class="icofont-rounded-down"></i></a>
-												<ul class="dropdown">
-													<li><a href="404.html">404 Error</a></li>
-												</ul>
-											</li>
-											<li><a href="#">Blogs <i class="icofont-rounded-down"></i></a>
-												<ul class="dropdown">
-													<li><a href="blog-single.html">Blog Details</a></li>
-												</ul>
-											</li>
-											<li><a href="contact.html">Contact Us</a></li>
-										</ul>
+											
+										</ul> -->
 									</nav>
 								</div>
 								<!--/ End Main Menu -->
