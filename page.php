@@ -1,5 +1,5 @@
 <?php
- 
+ 	get_header(); 
     if( have_posts() ) :
       while( have_posts() ) : the_post();
 
@@ -18,5 +18,7 @@
     else:
       _e('No Post Found', 'manutdtheme');
     endif;
+
+    get_footer(); 
  
   ?>
